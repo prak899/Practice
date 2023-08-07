@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragments.SingleImage">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:ignore="UselessParent">
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/replaceableText"
+                android:text="This text will be replace after some time"
+                android:gravity="start"
+                android:layout_marginTop="20dp"/>
+            <Button
+                android:id="@+id/next"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="#018369"
+                android:text="Continue to next"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                android:foreground="?android:attr/selectableItemBackground" />
+        </RelativeLayout>
+
+    </FrameLayout>
+</layout>
