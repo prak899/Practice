@@ -30,6 +30,7 @@ public class CameraPreview extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.camera_preview);
 
 
+        //change list test
         cameraPreviewView = findViewById(R.id.camera_preview);
         cameraProviderFuture = ProcessCameraProvider.getInstance(this);
 
