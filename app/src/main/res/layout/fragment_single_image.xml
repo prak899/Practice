@@ -23,6 +23,13 @@
                 android:text="This text will be replace after some time"
                 android:gravity="start"
                 android:layout_marginTop="20dp"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/replaceableText"
+                android:id="@+id/localImages"
+                android:layout_above="@+id/next"
+                android:src="@drawable/ic_launcher_background"/>
             <Button
                 android:id="@+id/next"
                 android:layout_width="match_parent"

@@ -1,28 +1,34 @@
 package com.example.practice.fragments;
 
 import android.content.Context;
-import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.practice.R;
 import com.example.practice.databinding.FragmentSingleImageBinding;
+import com.example.practice.utils.FileManager;
+
+import java.util.List;
 
 public class SingleImage extends Fragment {
 
+    private static final String TAG = "SingleImage";
     private FragmentSingleImageBinding fragmentSingleImageBinding;
     Context mContext;
     private String changeableText, yourName;
     private StringBuilder stringBuilder;
+    FileManager fileManager;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +40,7 @@ public class SingleImage extends Fragment {
         changeableText = String.valueOf(stringBuilder.append("Dear, ")
                         .append(yourName)
                         .append("Your text has been changed"));
+
     }
 
     @Nullable
@@ -42,7 +49,29 @@ public class SingleImage extends Fragment {
         // This method is called when the fragment's UI is being created.
         // Inflate the fragment's layout here.
         fragmentSingleImageBinding = FragmentSingleImageBinding.inflate(inflater, container, false);
+//        extracted();
         return fragmentSingleImageBinding.getRoot();
+    }
+
+    private void extracted() {
+        FileManager fileManager = new FileManager(requireContext());
+            List<String> fileNames = fileManager.getAllImageFileNames();
+            for (String fileName : fileNames) {
+                Log.d(TAG, "onViewCreated: " + fileName);
+                if (!fileName.isEmpty()) {
+                    RequestOptions requestOptions = new RequestOptions()
+                            .placeholder(R.drawable.ic_launcher_background) // Optional placeholder image
+                            .error(R.drawable.ic_launcher_foreground); // Optional error image
+
+                    //FileManager.path+ "/" +
+                    Glide.with(requireActivity())
+                            .load(Uri.parse(fileName))
+                            .apply(requestOptions)
+                            .into(fragmentSingleImageBinding.localImages);
+                } else {
+                    Toast.makeText(mContext, "Unable to load images", Toast.LENGTH_SHORT).show();
+                }
+            }
     }
 
     @Override
@@ -57,7 +86,10 @@ public class SingleImage extends Fragment {
                 Toast.makeText(mContext, "No data", Toast.LENGTH_SHORT).show();
             }
         });
-
+        /*Glide.with(this)
+                .load(fileManager.loadImageFile())
+                .into(imageView);*/
+        extracted();
     }
 
     @Override
