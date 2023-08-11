@@ -31,6 +31,7 @@ public class CameraPreview extends AppCompatActivity {
 
 
         //change list test
+        //bug checking
         cameraPreviewView = findViewById(R.id.camera_preview);
         cameraProviderFuture = ProcessCameraProvider.getInstance(this);
 
