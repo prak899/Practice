@@ -1,4 +1,4 @@
-package com.example.practice;
+package com.example.practice.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
+import com.example.practice.R;
 import com.example.practice.databinding.CameraPreviewBinding;
 import com.google.common.util.concurrent.ListenableFuture;
 

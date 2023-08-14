@@ -8,7 +8,7 @@ import java.util.List;
 
 public class FileManager {
     private Context context;
-    public static final String path = "/storage/emulated/0/Android/data/com.example.practice/files/Pictures/NarwaMissionProject";
+    public static final String path = "file:///storage/emulated/0/Android/data/com.example.practice/files/Pictures/NarwaMissionProject";
     public FileManager(Context context) {
         this.context = context;
     }

@@ -1,4 +1,4 @@
-package com.example.practice;
+package com.example.practice.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.practice.R;
 import com.example.practice.databinding.ActivityCaptureMoveImageBinding;
 import com.example.practice.fragments.SingleImage;
 import com.example.practice.model.MultipleResorces;

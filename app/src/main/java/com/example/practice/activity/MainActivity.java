@@ -1,15 +1,13 @@
-package com.example.practice;
+package com.example.practice.activity;
+
+import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.os.Bundle;
-import android.os.Handler;
-import android.view.View;
-import android.widget.Toast;
-
+import com.example.practice.R;
 import com.example.practice.databinding.ActivityMainBinding;
 import com.example.practice.fragments.MultipleImages;
 import com.example.practice.fragments.SingleImage;

@@ -1,10 +1,11 @@
-package com.example.practice;
+package com.example.practice.activity;
 
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.practice.R;
 import com.example.practice.databinding.ActivityFragmentContainerBinding;
 import com.example.practice.fragments.SingleImage;
 
