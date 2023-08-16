@@ -34,9 +34,20 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
         String imagePath = imagePaths.get(position);
-        Glide.with(holder.imageView.getContext())
+        Glide.with(holder.itemView.getContext())
                 .load(imagePath)
                 .into(holder.imageView);
+        /*Glide.with(holder.itemView.getContext())
+                .load(imagePath)
+                .into(holder.imageViewRight);
+
+        holder.itemView.setOnClickListener(v -> {
+            // Launch ImagePreviewActivity with the clicked image path
+            Intent intent = new Intent(holder.itemView.getContext(), CameraPreview.class);
+            intent.putExtra("imagePath", imagePath);
+            holder.itemView.getContext().startActivity(intent);
+        });*/
+
     }
 
     @Override
@@ -44,12 +55,13 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         return imagePaths.size();
     }
 
-    public class ImageViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
+    public static class ImageViewHolder extends RecyclerView.ViewHolder {
+        ImageView imageView, imageViewRight;
 
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
+            imageViewRight = itemView.findViewById(R.id.imageViewRight);
         }
     }
 }

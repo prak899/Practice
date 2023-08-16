@@ -1,28 +1,26 @@
 package com.example.practice.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.camera.core.CameraSelector;
-import androidx.camera.core.Preview;
-import androidx.camera.lifecycle.ProcessCameraProvider;
-import androidx.camera.view.PreviewView;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
+import com.bumptech.glide.Glide;
 import com.example.practice.R;
 import com.example.practice.databinding.CameraPreviewBinding;
-import com.google.common.util.concurrent.ListenableFuture;
+
+import java.io.File;
 
 public class CameraPreview extends AppCompatActivity {
 
     private static final String TAG = "CameraPreview";
-    private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
-    private PreviewView cameraPreviewView;
     CameraPreviewBinding binding;
+
+    private String imagePath;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -30,36 +28,32 @@ public class CameraPreview extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.camera_preview);
 
+        imagePath = getIntent().getStringExtra("imagePath");
+        Glide.with(this)
+                .load(imagePath)
+                .into(binding.previewImage);
+        binding.imageClear.setOnClickListener(view -> imageDelete());
+        binding.imageClearOk.setOnClickListener(view -> imageOk());
+    }
 
-        //change list test
-        //bug checking
-        cameraPreviewView = findViewById(R.id.camera_preview);
-        cameraProviderFuture = ProcessCameraProvider.getInstance(this);
+    private void imageDelete() {
+        File imageFileToDelete = new File(imagePath);
 
-        cameraProviderFuture.addListener(() -> {
-            try {
-                ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
-                bindPreview(cameraProvider);
-            } catch (Exception e) {
-                e.printStackTrace();
+        if (imageFileToDelete.exists()) {
+            boolean deleted = imageFileToDelete.delete();
+            if (deleted) {
+                startActivity(new Intent(this, CaptureImage.class));
+            } else {
+                Toast.makeText(this, "Unable to delete file", Toast.LENGTH_SHORT).show();
             }
-        }, ContextCompat.getMainExecutor(this));
-
-        binding.btnCapture.setOnClickListener(v->
-                        Log.d(TAG, "onCreate: capture clicked")
-                );
+        } else {
+            Toast.makeText(this, "File does not exist", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private void bindPreview(ProcessCameraProvider cameraProvider) {
-        Preview preview = new Preview.Builder().build();
-
-        CameraSelector cameraSelector = new CameraSelector.Builder()
-                .requireLensFacing(CameraSelector.LENS_FACING_BACK)
-                .build();
-
-        preview.setSurfaceProvider(cameraPreviewView.getSurfaceProvider());
-
-        cameraProvider.bindToLifecycle(this, cameraSelector, preview);
+    private void imageOk() {
+        startActivity(new Intent(this, FragmentContainer.class));
     }
+
 }
 

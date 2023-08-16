@@ -1,7 +1,7 @@
 package com.example.practice.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.media.ImageReader;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,10 +30,6 @@ public class SingleImage extends Fragment {
     private String changeableText, yourName;
     private StringBuilder stringBuilder;
     FileManager fileManager;
-    private ImageReader imageReader;
-    private byte[] imageData;
-
-    private RecyclerView recyclerView;
     private ImageAdapter adapter;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,33 +82,22 @@ public class SingleImage extends Fragment {
         // Perform any view-related setup here, such as finding views and setting click listeners.
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
         layoutManager.setOrientation(RecyclerView.VERTICAL);
-        fragmentSingleImageBinding.imageRecycler.setLayoutManager(layoutManager);
-        fragmentSingleImageBinding.next.setOnClickListener(v->{
-            /*if (null != changeableText) {
-                fragmentSingleImageBinding.replaceableText.setText(changeableText);
-            } else {
-                Toast.makeText(mContext, "No data", Toast.LENGTH_SHORT).show();
-            }*/
-
-        });
+        fragmentSingleImageBinding.imageRecycler.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         loadImagePaths();
     }
+    @SuppressLint("NotifyDataSetChanged")
     private void loadImagePaths() {
         List<String> imagePaths = new ArrayList<>();
         File storageDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-//        String path = "NarwaMissionProject";
         File directory = new File(storageDir, "NarwaMissionProject");
-        if (directory != null) {
-            File[] imageFiles = directory.listFiles();
-            if (imageFiles != null) {
-                for (File file : imageFiles) {
-                    if (file.isFile()) {
-                        imagePaths.add(file.getAbsolutePath());
-                    }
+        File[] imageFiles = directory.listFiles();
+        if (imageFiles != null) {
+            for (File file : imageFiles) {
+                if (file.isFile()) {
+                    imagePaths.add(file.getAbsolutePath());
                 }
             }
         }
-
         if (adapter == null) {
             adapter = new ImageAdapter(imagePaths);
             fragmentSingleImageBinding.imageRecycler.setAdapter(adapter);

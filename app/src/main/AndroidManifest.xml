@@ -39,7 +39,8 @@
         <activity
             android:name=".activity.CameraPreview"
             android:exported="false"
-            android:parentActivityName=".activity.CaptureImage" />
+            android:parentActivityName=".activity.CaptureImage"
+            android:theme="@style/NoActionBar"/>
         <activity
             android:name=".activity.MainActivity"
             android:exported="false" />
@@ -53,7 +54,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <meta-data
             android:name="androidx.camera.camera_provider"
             android:value="camera2" />

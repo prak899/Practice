@@ -9,21 +9,13 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.practice.model.MultipleResorces;
 import com.example.practice.retrofit.RetrofitClient;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import kotlinx.coroutines.Dispatchers;
-import kotlinx.coroutines.GlobalScope;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-
 public class MainViewModel extends ViewModel {
-
     private final MutableLiveData<List<MultipleResorces.Datum>> data = new MutableLiveData<>();
     public LiveData<List<MultipleResorces.Datum>> getData() {
         return data;

@@ -16,18 +16,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:ignore="UselessParent">
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/replaceableText"
-                android:text="This text will be replace after some time"
-                android:gravity="start"
-                android:layout_marginTop="20dp"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/imageRecycler"
-                android:layout_below="@id/replaceableText"
                 android:layout_above="@id/next"/>
             <Button
                 android:id="@+id/next"

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,9 +50,10 @@ public class CaptureImage extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         initView();
-        binding.viewImage.setOnClickListener(v->
-                startActivity(new Intent(this, FragmentContainer.class))
-        );
+        //view image is not there so that is showing red button don't need to delete it just do the needful changes.
+//        binding.viewImage.setOnClickListener(v->
+//                startActivity(new Intent(this, FragmentContainer.class))
+//        );
 
 //        getLiveData();
     }
@@ -65,7 +65,12 @@ public class CaptureImage extends AppCompatActivity {
         PreviewView previewView = findViewById(R.id.previewView);
 
         startCamera(previewView);
-        findViewById(R.id.captureButton).setOnClickListener(view -> takePhoto());
+        binding.btnCapture.setOnClickListener(view -> takePhoto());
+//        binding.btnViewImages.setOnClickListener(view -> viewImages());
+    }
+
+    private void viewImages() {
+        startActivity(new Intent(getApplicationContext(), FragmentContainer.class));
     }
 
     void getLiveData() {
@@ -140,7 +145,9 @@ public class CaptureImage extends AppCompatActivity {
                     @Override
                     public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
                         runOnUiThread(() -> {
-                            Toast.makeText(CaptureImage.this, "Photo saved: " + photoFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(CaptureImage.this, CameraPreview.class);
+                            intent.putExtra("imagePath", photoFile.getAbsolutePath());
+                            startActivity(intent);
                         });
                     }
 
@@ -150,7 +157,6 @@ public class CaptureImage extends AppCompatActivity {
                     }
                 });
     }
-
     private File getOutputDirectory() {
         File mediaDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File directory = new File(mediaDir, "NarwaMissionProject");
@@ -159,5 +165,4 @@ public class CaptureImage extends AppCompatActivity {
         }
         return directory;
     }
-
 }
