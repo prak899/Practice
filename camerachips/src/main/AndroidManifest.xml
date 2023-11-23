@@ -3,8 +3,7 @@
 
     <application
         android:allowBackup="true"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.Practice">
+        android:supportsRtl="true">
         <activity
             android:name=".CameraActivity"
             android:exported="true">
