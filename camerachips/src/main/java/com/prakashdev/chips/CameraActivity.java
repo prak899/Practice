@@ -46,7 +46,7 @@ public class CameraActivity extends AppCompatActivity {
         initView();
     }
 
-    private void initView() {
+    public void initView() {
         cameraExecutor = Executors.newSingleThreadExecutor();
         outputDirectory = getOutputDirectory();
         Log.d(TAG, "initView: " + getOutputDirectory());
@@ -60,7 +60,7 @@ public class CameraActivity extends AppCompatActivity {
         );
     }
 
-    private void startCamera(PreviewView previewView) {
+    public void startCamera(PreviewView previewView) {
         ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider
                 .getInstance(this);
 
@@ -74,7 +74,7 @@ public class CameraActivity extends AppCompatActivity {
         }, ContextCompat.getMainExecutor(this));
     }
 
-    private void bindPreview(ProcessCameraProvider cameraProvider, PreviewView previewView) {
+    public void bindPreview(ProcessCameraProvider cameraProvider, PreviewView previewView) {
         Preview preview = new Preview.Builder().build();
         preview.setSurfaceProvider(previewView.getSurfaceProvider());
 
@@ -89,7 +89,7 @@ public class CameraActivity extends AppCompatActivity {
         Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector, preview, imageCapture);
     }
 
-    private void takePhoto() {
+    public void takePhoto() {
         File photoFile = new File(outputDirectory, new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(System.currentTimeMillis()) + ".jpg");
 
         ImageCapture.OutputFileOptions outputFileOptions =
