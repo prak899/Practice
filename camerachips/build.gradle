@@ -61,7 +61,7 @@ publishing {
     publications {
         release(MavenPublication) {
             groupId = 'com.github.prak899'
-            artifactId = 'https://github.com/prak899/Practice.git'
+            artifactId = 'https://github.com/prak899/Practice'
             version = '1.0.0'
 
             afterEvaluate {
