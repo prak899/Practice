@@ -8,6 +8,13 @@
         <!-- TODO: Use <include> and <exclude> to control what is backed up.
         <include .../>
         <exclude .../>
+
+
+        1.Payment integration
+        2.Add new API call request
+        3.Test functionality to be add
+        4.Implementation of new UI structure
+        5.Dependency injection
         -->
     </cloud-backup>
     <!--

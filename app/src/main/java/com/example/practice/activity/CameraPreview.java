@@ -51,6 +51,7 @@ public class CameraPreview extends AppCompatActivity {
         }
     }
 
+
     private void imageOk() {
         startActivity(new Intent(this, FragmentContainer.class));
     }

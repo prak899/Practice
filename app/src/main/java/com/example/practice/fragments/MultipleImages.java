@@ -20,7 +20,6 @@ import com.example.practice.retrofit.RetrofitClient;
 import com.example.practice.viewmodel.MainViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,11 +33,13 @@ public class MultipleImages extends Fragment {
 
     private MainViewModel mainViewModel;
     public static String TAG ="captureImages";
+    private Context context;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // This method is called when the fragment is created.
         // Initialize variables and perform setup here.
+        context = getContext();
         valueOfTarget =
                 "dgfhfdbfjhdfgdfgvdfkfdfsgfysfgusdkfgfgdfsdfbfjh";
         cameraQuote =

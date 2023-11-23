@@ -1,6 +1,10 @@
 package com.example.practice.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -50,7 +54,6 @@ public class CaptureImage extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         initView();
-        //view image is not there so that is showing red button don't need to delete it just do the needful changes.
 //        binding.viewImage.setOnClickListener(v->
 //                startActivity(new Intent(this, FragmentContainer.class))
 //        );
@@ -65,15 +68,19 @@ public class CaptureImage extends AppCompatActivity {
         PreviewView previewView = findViewById(R.id.previewView);
 
         startCamera(previewView);
-        binding.btnCapture.setOnClickListener(view -> takePhoto());
+        binding.btnCapture.setOnClickListener(view ->
+                takePhoto()
+//                startActivity(new Intent(this, KtorFiles.class))
+
+        );
 //        binding.btnViewImages.setOnClickListener(view -> viewImages());
     }
 
-    private void viewImages() {
+    protected void viewImages() {
         startActivity(new Intent(getApplicationContext(), FragmentContainer.class));
     }
 
-    void getLiveData() {
+    protected void getLiveData() {
         // Observe LiveData to update the UI
         viewModel.getData().observe(this, data -> {
             if (null != data){
@@ -107,7 +114,8 @@ public class CaptureImage extends AppCompatActivity {
         viewModel.fetchUsersDetails();
     }
     private void startCamera(PreviewView previewView) {
-        ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(this);
+        ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider
+                .getInstance(this);
 
         cameraProviderFuture.addListener(() -> {
             try {
@@ -148,6 +156,7 @@ public class CaptureImage extends AppCompatActivity {
                             Intent intent = new Intent(CaptureImage.this, CameraPreview.class);
                             intent.putExtra("imagePath", photoFile.getAbsolutePath());
                             startActivity(intent);
+//                            addTextToImageAndDisplay();
                         });
                     }
 
@@ -164,5 +173,21 @@ public class CaptureImage extends AppCompatActivity {
             directory.mkdirs();
         }
         return directory;
+    }
+    private void addTextToImageAndDisplay(Bitmap capturedBitmap) {
+        Bitmap mutableBitmap = capturedBitmap.copy(Bitmap.Config.ARGB_8888, true);
+        Canvas canvas = new Canvas(mutableBitmap);
+
+        Paint textPaint = new Paint();
+        textPaint.setColor(Color.WHITE);
+        textPaint.setTextSize(48);
+        textPaint.setAntiAlias(true);
+
+        String textToPaste = "Your Text Here";
+        float x = 100;
+        float y = 200;
+
+        canvas.drawText(textToPaste, x, y, textPaint);
+
     }
 }

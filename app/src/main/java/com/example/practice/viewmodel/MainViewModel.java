@@ -37,8 +37,8 @@ public class MainViewModel extends ViewModel {
                     if (null != response.body() && 200 == response.code()){
                         MultipleResorces.Root root = response.body();
                         List<MultipleResorces.Datum> datumList = root.data;
-
                         data.postValue(datumList);
+
                     }
                 }
                 @Override

@@ -1,0 +1,3 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#B0BEC5" /> <!-- Customize the color of the track -->
+</shape>
