@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.library'
+    id 'maven-publish'
 }
 
 android {
@@ -28,7 +29,14 @@ android {
     dataBinding {
         enabled = true
     }
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 }
+
 
 dependencies {
 
@@ -47,4 +55,18 @@ dependencies {
 
     implementation "androidx.camera:camera-view:${camerax_version}"
     implementation "androidx.camera:camera-extensions:${camerax_version}"
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = 'com.github.prak899'
+            artifactId = 'https://github.com/prak899/Practice.git'
+            version = '1.0.0'
+
+            afterEvaluate {
+                from components.release
+            }
+        }
+    }
 }
