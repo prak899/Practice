@@ -47,7 +47,7 @@ public class CameraActivity extends AppCompatActivity {
 
     public void initView(Context context) {
         cameraExecutor = Executors.newSingleThreadExecutor();
-        outputDirectory = getOutputDirectory(context);
+//        outputDirectory = getOutputDirectory(context);
 
 
         PreviewView previewView = findViewById(R.id.previewView1);
