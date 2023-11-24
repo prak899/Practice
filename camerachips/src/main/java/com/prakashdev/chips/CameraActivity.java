@@ -60,8 +60,8 @@ public class CameraActivity extends AppCompatActivity {
 
         startCamera(customPreview);
         binding.btnCapture.setOnClickListener(view ->
-//                takePhoto()
-                Log.d(TAG, "initView: start")
+                takePhoto(this)
+//                Log.d(TAG, "initView: start")
 
         );
     }
@@ -95,7 +95,7 @@ public class CameraActivity extends AppCompatActivity {
         Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector, preview, imageCapture);
     }
 
-    public void takePhoto(Context context) {
+    public String takePhoto(Context context) {
         File photoFile = new File(outputDirectory, new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(System.currentTimeMillis()) + ".jpg");
 
         ImageCapture.OutputFileOptions outputFileOptions =
@@ -113,7 +113,7 @@ public class CameraActivity extends AppCompatActivity {
                             } catch (ClassNotFoundException e) {
                                 Toast.makeText(CameraActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }*/
-                            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, photoFile.getAbsolutePath(), Toast.LENGTH_SHORT).show();
                         });
                     }
 
@@ -122,6 +122,7 @@ public class CameraActivity extends AppCompatActivity {
                         exception.printStackTrace();
                     }
                 });
+        return photoFile.getAbsolutePath();
     }
 
     private File getOutputDirectory() {
