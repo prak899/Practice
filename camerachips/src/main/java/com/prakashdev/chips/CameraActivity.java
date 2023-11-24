@@ -47,8 +47,8 @@ public class CameraActivity extends AppCompatActivity {
 
     public void initView(Context context) {
         cameraExecutor = Executors.newSingleThreadExecutor();
-        outputDirectory = getOutputDirectory();
-        Log.d(TAG, "initView: " + getOutputDirectory());
+        outputDirectory = getOutputDirectory(context);
+
 
         PreviewView previewView = findViewById(R.id.previewView1);
 
@@ -122,8 +122,8 @@ public class CameraActivity extends AppCompatActivity {
         return photoFile.getAbsolutePath();
     }
 
-    private File getOutputDirectory() {
-        File mediaDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+    private File getOutputDirectory(Context context) {
+        File mediaDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File directory = new File(mediaDir, "NarwaMissionProject");
         if (!directory.exists()) {
             directory.mkdirs();
