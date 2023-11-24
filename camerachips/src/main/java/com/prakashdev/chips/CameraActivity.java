@@ -9,14 +9,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.camera.core.Camera;
 import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageCaptureException;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.LifecycleOwner;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.prakashdev.chips.custom.Preview;
@@ -44,10 +42,10 @@ public class CameraActivity extends AppCompatActivity {
         setContentView(view);
 
 
-        initView();
+//        initView();
     }
 
-    public void initView() {
+    public void initView(Context context) {
         cameraExecutor = Executors.newSingleThreadExecutor();
         outputDirectory = getOutputDirectory();
         Log.d(TAG, "initView: " + getOutputDirectory());
@@ -58,17 +56,16 @@ public class CameraActivity extends AppCompatActivity {
         PreviewView customPreview = customPreviewContainer.getPreviewView();
         // Now you can use 'previewView' in your code
 
-        startCamera(customPreview);
-        binding.btnCapture.setOnClickListener(view ->
-                takePhoto(this)
-//                Log.d(TAG, "initView: start")
-
-        );
+        startCamera(customPreview, context);
+        binding.btnCapture.setOnClickListener(view -> {
+//                takePhoto(this)
+            Log.d(TAG, "initView: start");
+        });
     }
 
-    public void startCamera(PreviewView previewView) {
+    public void startCamera(PreviewView previewView, Context context) {
         ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider
-                .getInstance(this);
+                .getInstance(context);
 
         cameraProviderFuture.addListener(() -> {
             try {
@@ -77,7 +74,7 @@ public class CameraActivity extends AppCompatActivity {
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
-        }, ContextCompat.getMainExecutor(this));
+        }, ContextCompat.getMainExecutor(context));
     }
 
     public void bindPreview(ProcessCameraProvider cameraProvider, PreviewView previewView) {
@@ -92,7 +89,7 @@ public class CameraActivity extends AppCompatActivity {
                 .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
                 .build();
 
-        Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector, preview, imageCapture);
+//        Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector, preview, imageCapture);
     }
 
     public String takePhoto(Context context) {
