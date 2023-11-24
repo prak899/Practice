@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -69,13 +70,20 @@ public class CaptureImage extends AppCompatActivity {
 
         startCamera(previewView);
         binding.btnCapture.setOnClickListener(view ->
-                takePhoto()
-//                startActivity(new Intent(this, KtorFiles.class))
+//                takePhoto()
+                changeLibrary()
 
         );
 //        binding.btnViewImages.setOnClickListener(view -> viewImages());
     }
 
+    public void changeLibrary(){
+        try {
+            startActivity(new Intent(this, Class.forName("com.prakashdev.chips.CameraActivity")));
+        } catch (ClassNotFoundException e) {
+            Toast.makeText(this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
     protected void viewImages() {
         startActivity(new Intent(getApplicationContext(), FragmentContainer.class));
     }

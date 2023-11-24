@@ -1,6 +1,6 @@
 package com.prakashdev.chips;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -13,13 +13,13 @@ import androidx.camera.core.Camera;
 import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageCaptureException;
-import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
 
 import com.google.common.util.concurrent.ListenableFuture;
+import com.prakashdev.chips.custom.Preview;
 import com.prakashdev.chips.databinding.ActivityCameraBinding;
 
 import java.io.File;
@@ -43,6 +43,7 @@ public class CameraActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+
         initView();
     }
 
@@ -51,11 +52,16 @@ public class CameraActivity extends AppCompatActivity {
         outputDirectory = getOutputDirectory();
         Log.d(TAG, "initView: " + getOutputDirectory());
 
-        PreviewView previewView = findViewById(R.id.previewView);
+        PreviewView previewView = findViewById(R.id.previewView1);
 
-        startCamera(previewView);
+        Preview customPreviewContainer = findViewById(R.id.customPreviewContainer);
+        PreviewView customPreview = customPreviewContainer.getPreviewView();
+        // Now you can use 'previewView' in your code
+
+        startCamera(customPreview);
         binding.btnCapture.setOnClickListener(view ->
-                takePhoto()
+//                takePhoto()
+                Log.d(TAG, "initView: start")
 
         );
     }
@@ -75,7 +81,7 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     public void bindPreview(ProcessCameraProvider cameraProvider, PreviewView previewView) {
-        Preview preview = new Preview.Builder().build();
+        androidx.camera.core.Preview preview = new androidx.camera.core.Preview.Builder().build();
         preview.setSurfaceProvider(previewView.getSurfaceProvider());
 
         CameraSelector cameraSelector = new CameraSelector.Builder()
@@ -89,7 +95,7 @@ public class CameraActivity extends AppCompatActivity {
         Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector, preview, imageCapture);
     }
 
-    public void takePhoto() {
+    public void takePhoto(Context context) {
         File photoFile = new File(outputDirectory, new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(System.currentTimeMillis()) + ".jpg");
 
         ImageCapture.OutputFileOptions outputFileOptions =
@@ -100,13 +106,14 @@ public class CameraActivity extends AppCompatActivity {
                     @Override
                     public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
                         runOnUiThread(() -> {
-                            try {
+                           /* try {
                                 Intent intent = new Intent(CameraActivity.this, Class.forName("com.example.practice.activity.CameraPreview"));
                                 intent.putExtra("imagePath", photoFile.getAbsolutePath());
                                 startActivity(intent);
                             } catch (ClassNotFoundException e) {
                                 Toast.makeText(CameraActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
+                            }*/
+                            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
                         });
                     }
 
