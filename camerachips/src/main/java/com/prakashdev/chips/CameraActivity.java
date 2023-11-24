@@ -45,14 +45,11 @@ public class CameraActivity extends AppCompatActivity {
 //        initView();
     }
 
-    public void initView(Context context) {
+    public void initView(Context context, int resourceId) {
         cameraExecutor = Executors.newSingleThreadExecutor();
-//        outputDirectory = getOutputDirectory(context);
+        outputDirectory = getOutputDirectory(context);
 
-
-        PreviewView previewView = findViewById(R.id.previewView1);
-
-        Preview customPreviewContainer = findViewById(R.id.customPreviewContainer);
+        Preview customPreviewContainer = findViewById(resourceId);
         PreviewView customPreview = customPreviewContainer.getPreviewView();
         // Now you can use 'previewView' in your code
 
